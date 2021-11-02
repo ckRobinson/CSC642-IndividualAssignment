@@ -4,8 +4,21 @@
 
     <title>CSC 642 848 Fall 2021 Individual Assignment Cameron Robinson Data survey form</title>
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>
 
 </head>
+<script>
+    var onloadCallback = function() {
+        grecaptcha.render('html_element', {
+            'sitekey' : '6LcODA4dAAAAAElzLcFHQwAw2ExVoo3wIzuCxmHg',
+            'callback' : correctCaptcha
+        });
+    };
+
+    var correctCaptcha = function(response) {
+        alert(response);
+    };
+</script>
 <body class="container">
 <header>
 </header>
@@ -72,13 +85,11 @@
     <br>
 
     <form action="?" method="POST">
-        <div class="g-recaptcha" data-sitekey="6LcODA4dAAAAAElzLcFHQwAw2ExVoo3wIzuCxmHg"></div>
-        <input type="submit" value="Submit">
+        <div id='html_element'></div>
+        <input type="submit" value="getResponse">
     </form>
   
     <br>
-
-    <button>Submit</button>     
 </form>
 
 <main>
