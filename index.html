@@ -23,6 +23,16 @@
         alert(response);
     };
 </script>
+<style>
+    .required {
+        color: red;
+        text-decoration: none !important;
+    }
+    .dummyLink {
+        color: blue;
+        cursor: inherit !important;
+    }
+</style>
 <body class="container">
 <header>
 </header>
@@ -34,22 +44,22 @@
         <div id="AboutUser" class="" style="border: 2px solid black; padding: 20px; border-radius: 25px;">
             
             <div class="col-md-6">
-                <label for="firstName" class="col-form-label">First Name *</label>
+                <label for="firstName" class="col-form-label">First Name <abbr class="required" title="required">*</abbr></label>
                 <input type="text" id="firstName" class="form-control" placeholder="John" required>
             </div>
 
             <div class="col-md-6">
-                <label for="lastName" class="col-form-label">Last Name *</label>
+                <label for="lastName" class="col-form-label">Last Name <abbr class="required" title="required">*</abbr></label>
                 <input type="text" id="lastName" class="form-control" placeholder="Doe" required>
             </div>
 
             <div class="col-md-6">
-                <label for="emailAddress" class="col-form-label">Email Address *</label>
+                <label for="emailAddress" class="col-form-label">Email Address <abbr class="required" title="required">*</abbr></label>
                 <input type="email" id="emailAddress" class="form-control" placeholder="johndoe@mail.com" required>
             </div>
             
             <div class="col-md-2">
-                <label for="preferredTitle" class="col-form-label">Preferred Title *</label>
+                <label for="preferredTitle" class="col-form-label">Preferred Title <abbr class="required" title="required">*</abbr></label>
                 <select id="preferredTitle" class="form-select" aria-label="Preferred Title" required>
                     <option selected value="">Select One</option>
                     <option value="none">None</option>
@@ -102,7 +112,7 @@
         <label class="col-form-label">Address</label>
         <div style="border: 2px solid black; padding: 20px; border-radius: 25px;">
             <div class="col-md-6">
-                <label for="address1" class="col-form-label">Address Line 1 *</label>
+                <label for="address1" class="col-form-label">Address Line 1 <abbr class="required" title="required">*</abbr></label>
                 <input type="text" class="form-control" id="address1" placeholder="1234 Doe Street" required>
             </div>
             <div class="col-md-6">
@@ -110,41 +120,48 @@
                 <input type="text" class="form-control" id="address2" placeholder="Apt 123 (Optional)">
             </div>
             <div class="col-md-1">
-                <label for="zipCode" class="col-form-label">Zip *</label>
+                <label for="zipCode" class="col-form-label">Zip <abbr class="required" title="required">*</abbr></label>
                 <input type="text" class="form-control" id="zipCode" required>
             </div>
         </div>
 
         <br>
 
-        <label class="col-form-label">Services</label>
+        <label class="col-form-label">Service Options</label>
         <div style="border: 2px solid black; padding: 20px; border-radius: 25px;">
-
-            <label for="" class="col-form-label">Services Required (Check all that apply)</label>
-            <div class="col-md-4" style="border: 2px solid black; padding: 20px; border-radius: 25px;">
-                <input type="checkbox" id="e-mail" name="e-mail" value="e-mail">
-                <label for="e-mail">E-mail</label><br>
-                <input type="checkbox" id="phone" name="phone" value="phone">
-                <label for="phone">Phone</label><br>
-                <input type="checkbox" id="Facebook" name="Facebook" value="Facebook">
-                <label for="Facebook">Facebook</label><br>
-                <input type="checkbox" id="Twitter" name="Twitter" value="Twitter">
-                <label for="Twitter">Twitter</label><br>
-                <input type="checkbox" id="surface mail" name="surface mail" value="surface mail">
-                <label for="surface mail">Surface Mail</label><br>
-                <input type="checkbox" id="personal visit" name="personal visit" value="personal visit">
-                <label for="personal visit">Personal Visit</label>
+                
+            <div>
+                <label class="col-form-label">Services Required (Check all that apply)</label>
             </div>
 
-            <label for="" class="col-form-label">Monthly Budget (Select one)</label>
-            <div class="col-md-3" style="border: 2px solid black; padding: 20px; border-radius: 25px;">
-                <input type="radio" id="lt50" name="budget" value="lt50">
-                <label for="lt50">Less than $50</label><br>
-                <input type="radio" id="50-100" name="budget" value="50-100">
-                <label for="50-100">$50 - $100</label><br>
-                <input type="radio" id="gt100" name="budget" value="gt100">
-                <label for="gt100">$100 or More</label>
+            <input type="checkbox" id="e-mail" name="e-mail" value="e-mail">
+            <label for="e-mail">E-mail</label><br>
+            <input type="checkbox" id="phone" name="phone" value="phone">
+            <label for="phone">Phone</label><br>
+            <input type="checkbox" id="Facebook" name="Facebook" value="Facebook">
+            <label for="Facebook">Facebook</label><br>
+            <input type="checkbox" id="Twitter" name="Twitter" value="Twitter">
+            <label for="Twitter">Twitter</label><br>
+            <input type="checkbox" id="surface mail" name="surface mail" value="surface mail">
+            <label for="surface mail">Surface Mail</label><br>
+            <input type="checkbox" id="personal visit" name="personal visit" value="personal visit">
+            <label for="personal visit">Personal Visit</label>
+
+            <div class="col-md-4">
+                <hr>
             </div>
+
+
+            <div>
+                <label for="" class="col-form-label">Monthly Budget (Select one)</label>
+            </div>
+
+            <input type="radio" id="lt50" name="budget" value="lt50">
+            <label for="lt50">Less than $50</label><br>
+            <input type="radio" id="50-100" name="budget" value="50-100">
+            <label for="50-100">$50 - $100</label><br>
+            <input type="radio" id="gt100" name="budget" value="gt100">
+            <label for="gt100">$100 or More</label>
         </div>
 
         <br>
@@ -153,7 +170,7 @@
             <div class="col-form-check">
                 <input class="form-check-input" type="checkbox" value="" id="termsAndConditions" required>
                 <label class="form-check-label" for="termsAndConditions">
-                Agree to terms and conditions
+                I have read and agree to the website <abbr class="dummyLink" title="Dummy link">terms and conditions</abbr> <abbr class="required" title="required">*</abbr>
                 </label>
                 <div class="invalid-feedback">
                 You must agree before submitting.
