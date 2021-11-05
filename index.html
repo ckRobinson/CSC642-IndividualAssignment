@@ -13,6 +13,9 @@
 
 </head>
 <style>
+    #phone-number-invalid-feedback {
+        display: none;
+    }
     #captcha-invalid-feedback {
         display: none;
     }
@@ -107,8 +110,8 @@
 
             <div class="col-md-3">
                 <label for="phoneNumber" class="col-form-label">Phone Number</label>
-                <input type="tel" id="phoneNumber" class="form-control" pattern="[0-9]{0,10}" placeholder="(555) 555-5555">                
-                <div class="invalid-feedback">
+                <input type="tel" id="phoneNumber" class="form-control" pattern="^\(?\d{3}\)?\s\d{3}-\d{4}\s*$" placeholder="(555) 555-5555">                
+                <div id="phone-number-invalid-feedback" class="invalid-feedback">
                     Please enter a valid phone number.
                 </div>
             </div>
@@ -244,8 +247,32 @@ var correctCaptcha = function(response) {
     let divs = document.querySelectorAll('.needs-validation')
     divs = Array.from(divs)
 
-    let captchaFeedback = document.querySelectorAll('#captcha-invalid-feedback')
-    captchaFeedbackDiv = Array.from(captchaFeedback)[0]
+    // Get the invalid feedback error div for the captcha. Used to
+    // display the error on form submission but can not be done through standard
+    // bootstrap due to limitations with system.
+    captchaFeedbackDiv = document.getElementById('captcha-invalid-feedback')
+
+    // Get the phone number input field and invalid feedback div. Used to display
+    // the error on form submission but because it is an optional value
+    // do not want it to be displayed at all times. This will only appear 
+    // if the form has data that does not fit the required type.
+    let phoneNumberFeedback = document.getElementById('phone-number-invalid-feedback')
+    let phoneNumberInput = document.getElementById('phoneNumber')
+
+    // Creating phone number error closure.
+    let checkPhoneNumberInput = () => {
+        if(phoneNumberInput.checkValidity() === false) {
+            phoneNumberFeedback.style.display = "block"
+        }
+        else {
+            phoneNumberFeedback.style.display = "none"
+        }
+    }
+
+    // Update the phone number error when the input field is changed.
+    phoneNumberInput.addEventListener('change', (event) => {
+        checkPhoneNumberInput()
+    })
 
     // Fetch all the forms that need validation
     var forms = document.querySelectorAll('.form-validation')
@@ -256,7 +283,7 @@ var correctCaptcha = function(response) {
         form.addEventListener('submit', function (event) {
 
             // If any one of the fields is invalid we stop the event.
-            if (!form.checkValidity()) {
+            if (form.checkValidity() === false) {
                 event.preventDefault()
                 event.stopPropagation()
             }
