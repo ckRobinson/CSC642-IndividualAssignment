@@ -32,8 +32,12 @@
 <header>
 </header>
 <br>
+<div style="text-align: center;">
+    <h4>CSC 642 848 Fall 2021 Individual Assignment Cameron Robinson</h4>
+    <h4>Data survey Form</h4>
+</div>
 <br>
-<form class="form-validation" novalidate>
+<form action="results.html" class="form-validation" novalidate>
     <div>
         <label for="AboutUser" class="col-form-label">About You</label>
         <div id="AboutUser" style="border: 2px solid black; padding: 20px; border-radius: 25px;">
@@ -132,7 +136,7 @@
                 <label for="address2" class="col-form-label">Address Line 2</label>
                 <input type="text" class="form-control is-optional" id="address2" placeholder="Apt 123 (Optional)">
             </div>
-            <div class="col-md-1 needs-validation">
+            <div class="col-md-2 needs-validation">
                 <label for="zipCode" class="col-form-label">Zip <abbr class="required" title="required">*</abbr></label>
                 <input type="text" class="form-control" id="zipCode" pattern="[0-9]{5}" required>
                 <div class="invalid-feedback">
@@ -150,18 +154,18 @@
                 <label class="col-form-label">Services Required (Check all that apply)</label>
             </div>
 
-            <input type="checkbox" id="e-mail" name="e-mail" value="e-mail">
-            <label for="e-mail">E-mail</label><br>
+            <input type="checkbox" id="email" name="e-mail" value="e-mail">
+            <label for="email">E-mail</label><br>
             <input type="checkbox" id="phone" name="phone" value="phone">
             <label for="phone">Phone</label><br>
-            <input type="checkbox" id="Facebook" name="Facebook" value="Facebook">
-            <label for="Facebook">Facebook</label><br>
-            <input type="checkbox" id="Twitter" name="Twitter" value="Twitter">
-            <label for="Twitter">Twitter</label><br>
-            <input type="checkbox" id="surface mail" name="surface mail" value="surface mail">
-            <label for="surface mail">Surface Mail</label><br>
-            <input type="checkbox" id="personal visit" name="personal visit" value="personal visit">
-            <label for="personal visit">Personal Visit</label>
+            <input type="checkbox" id="facebook" name="Facebook" value="Facebook">
+            <label for="facebook">Facebook</label><br>
+            <input type="checkbox" id="twitter" name="Twitter" value="Twitter">
+            <label for="twitter">Twitter</label><br>
+            <input type="checkbox" id="surfaceMail" name="surface mail" value="surface mail">
+            <label for="surfaceMail">Surface Mail</label><br>
+            <input type="checkbox" id="personalVisit" name="personal visit" value="personal visit">
+            <label for="personalVisit">Personal Visit</label>
 
             <div class="col-md-4">
                 <hr>
@@ -237,6 +241,51 @@ var correctCaptcha = function(response) {
     // alert(response);
 };
 
+function saveFormToStorage(form) {
+    sessionStorage.setItem("firstName",       document.getElementById("firstName").value)
+    sessionStorage.setItem("lastName",        document.getElementById("lastName").value)
+    sessionStorage.setItem("preferredTitle",  document.getElementById("preferredTitle").value)
+    sessionStorage.setItem("heightFeet",      document.getElementById("heightFeet").value)
+    sessionStorage.setItem("heightInches",    document.getElementById("heightInches").value)
+    sessionStorage.setItem("phoneNumber",     document.getElementById("phoneNumber").value)
+    sessionStorage.setItem("address1",        document.getElementById("address1").value)
+    sessionStorage.setItem("address2",        document.getElementById("address2").value)
+    sessionStorage.setItem("zipCode",         document.getElementById("zipCode").value)
+
+    let serivces = [];
+    if(document.getElementById("email").checked) {
+        serivces.push("email")
+    }
+    if(document.getElementById("phone").checked) {
+        serivces.push("phone")
+    }
+    if(document.getElementById("facebook").checked) {
+        serivces.push("facebook")
+    }
+    if(document.getElementById("twitter").checked) {
+        serivces.push("twitter")
+    }
+    if(document.getElementById("surfaceMail").checked) {
+        serivces.push("surfaceMail")
+    }
+    if(document.getElementById("personalVisit").checked) {
+        serivces.push("personalVisit")
+    }
+    sessionStorage.setItem("services", serivces)
+
+    let budget = "Not Supplied";
+    if(document.getElementById("lt50").checked) {
+        budget = "Less than $50"
+    }
+    else if(document.getElementById("50-100").checked) {
+        budget = "$50 - $100"
+    }
+    else if(document.getElementById("gt100").checked) {
+        budget = "$100 or More"
+    }
+    sessionStorage.setItem("budget", budget)
+}
+
 // Basis of this function was taken from https://getbootstrap.com/docs/5.0/forms/validation/
 // but modified for my purposes.
 (function () {
@@ -282,10 +331,12 @@ var correctCaptcha = function(response) {
 
         form.addEventListener('submit', function (event) {
 
+            let submitting = true
             // If any one of the fields is invalid we stop the event.
             if (form.checkValidity() === false) {
                 event.preventDefault()
                 event.stopPropagation()
+                submitting = false
             }
             
             if(captchaValid === false) {
@@ -293,14 +344,22 @@ var correctCaptcha = function(response) {
                 event.stopPropagation()
 
                 captchaFeedbackDiv.style.display = "block"
+                submitting = false;
             }
 
-            // For each required field we set its css tag to allow
-            // for the bootstrap popups.
-            divs.forEach(function (div) {
-                div.classList.add('was-validated')
-            })
+            if(submitting) {
 
+                saveFormToStorage(form)
+            }
+            else {
+                // We are not switching to the results page so update the 
+                // divs to show which fields have errors.
+                // For each required field we set its css tag to allow
+                // for the bootstrap popups.
+                divs.forEach(function (div) {
+                    div.classList.add('was-validated')
+                })
+            }
         }, false)
     })
 })()
