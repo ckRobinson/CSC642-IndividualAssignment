@@ -1,0 +1,19 @@
+#phone-number-invalid-feedback {
+    display: none;
+}
+#captcha-invalid-feedback {
+    display: none;
+}
+.required {
+    color: red;
+    text-decoration: none !important;
+}
+.dummyLink {
+    color: blue;
+    cursor: inherit !important;
+}
+.grouping {
+    border: 2px solid black; 
+    padding: 20px; 
+    border-radius: 25px;
+}

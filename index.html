@@ -4,30 +4,15 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <link rel="stylesheet" href="main.css">
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>    
 
     <title>CSC 642 848 Fall 2021 Individual Assignment Cameron Robinson Data survey form</title>
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>
-
 </head>
-<style>
-    #phone-number-invalid-feedback {
-        display: none;
-    }
-    #captcha-invalid-feedback {
-        display: none;
-    }
-    .required {
-        color: red;
-        text-decoration: none !important;
-    }
-    .dummyLink {
-        color: blue;
-        cursor: inherit !important;
-    }
-</style>
 <body class="container">
 <header>
 </header>
@@ -40,7 +25,7 @@
 <form action="results.html" method="post" class="form-validation"  novalidate>
     <div>
         <label for="AboutUser" class="col-form-label">About You</label>
-        <div id="AboutUser" style="border: 2px solid black; padding: 20px; border-radius: 25px;">
+        <div id="AboutUser" class="grouping">
             
             <div class="col-md-6 needs-validation">
                 <label for="firstName" class="col-form-label">First Name <abbr class="required" title="required">*</abbr></label>
@@ -59,10 +44,10 @@
             </div>
 
             <div class="col-md-6 needs-validation">
-                <label for="emailAddress" class="col-form-label">Email Address <abbr class="required" title="required">*</abbr></label>
+                <label for="emailAddress" class="col-form-label">E-Mail Address <abbr class="required" title="required">*</abbr></label>
                 <input type="email" id="emailAddress" class="form-control" placeholder="johndoe@mail.com" required> 
                 <div class="invalid-feedback">
-                    Please enter a valid email address.
+                    Please enter a valid e-mail address.
                 </div>
             </div>
             
@@ -70,11 +55,11 @@
                 <label for="preferredTitle" class="col-form-label">Preferred Title <abbr class="required" title="required">*</abbr></label>
                 <select id="preferredTitle" class="form-select" aria-label="Preferred Title" required>
                     <option selected value="">Select One</option>
-                    <option value="none">None</option>
-                    <option value="student">Student</option>
-                    <option value="professor">Professor</option>
-                    <option value="staff">Staff</option>
-                    <option value="retired">Retired</option>
+                    <option value="None">None</option>
+                    <option value="Student">Student</option>
+                    <option value="Professor">Professor</option>
+                    <option value="Staff">Staff</option>
+                    <option value="Retired">Retired</option>
                 </select>
                 <div class="invalid-feedback">
                     Please select an option.
@@ -124,7 +109,7 @@
         <br>
 
         <label class="col-form-label">Address</label>
-        <div style="border: 2px solid black; padding: 20px; border-radius: 25px;">
+        <div class="grouping">
             <div class="col-md-6 needs-validation">
                 <label for="address1" class="col-form-label">Address Line 1 <abbr class="required" title="required">*</abbr></label>
                 <input type="text" class="form-control" id="address1" placeholder="1234 Doe Street" pattern=".{1,40}" required>
@@ -148,23 +133,23 @@
         <br>
 
         <label class="col-form-label">Service Options</label>
-        <div style="border: 2px solid black; padding: 20px; border-radius: 25px;">
+        <div class="grouping">
                 
             <div>
                 <label class="col-form-label">Services Required (Check all that apply)</label>
             </div>
 
-            <input type="checkbox" id="email" name="e-mail" value="e-mail">
-            <label for="email">E-mail</label><br>
-            <input type="checkbox" id="phone" name="phone" value="phone">
+            <input type="checkbox" id="email" name="e-mail" value="E-Mail">
+            <label for="email">E-Mail</label><br>
+            <input type="checkbox" id="phone" name="phone" value="Phone">
             <label for="phone">Phone</label><br>
             <input type="checkbox" id="facebook" name="Facebook" value="Facebook">
             <label for="facebook">Facebook</label><br>
             <input type="checkbox" id="twitter" name="Twitter" value="Twitter">
             <label for="twitter">Twitter</label><br>
-            <input type="checkbox" id="surfaceMail" name="surface mail" value="surface mail">
+            <input type="checkbox" id="surfaceMail" name="surface mail" value="Surface Mail">
             <label for="surfaceMail">Surface Mail</label><br>
-            <input type="checkbox" id="personalVisit" name="personal visit" value="personal visit">
+            <input type="checkbox" id="personalVisit" name="personal visit" value="Personal Visit">
             <label for="personalVisit">Personal Visit</label>
 
             <div class="col-md-4">
@@ -223,7 +208,7 @@
 </footer>
 
 <script>
-var captchaValid = false;
+var captchaValid = true;
 var captchaFeedbackDiv = null
 
 var onloadCallback = function() {
@@ -244,6 +229,7 @@ var correctCaptcha = function(response) {
 function saveFormToStorage(form) {
     sessionStorage.setItem("firstName",       document.getElementById("firstName").value)
     sessionStorage.setItem("lastName",        document.getElementById("lastName").value)
+    sessionStorage.setItem("emailAddress",    document.getElementById("emailAddress").value)
     sessionStorage.setItem("preferredTitle",  document.getElementById("preferredTitle").value)
     sessionStorage.setItem("heightFeet",      document.getElementById("heightFeet").value)
     sessionStorage.setItem("heightInches",    document.getElementById("heightInches").value)
@@ -253,25 +239,38 @@ function saveFormToStorage(form) {
     sessionStorage.setItem("zipCode",         document.getElementById("zipCode").value)
 
     let serivces = [];
-    if(document.getElementById("email").checked) {
-        serivces.push("email")
+    
+    let email = document.getElementById("email")
+    if(email.checked) {
+        serivces.push(email.value)
     }
-    if(document.getElementById("phone").checked) {
-        serivces.push("phone")
+
+    let phone = document.getElementById("phone")
+    if(phone.checked) {
+        serivces.push(phone.value)
     }
-    if(document.getElementById("facebook").checked) {
-        serivces.push("facebook")
+
+    let facebook = document.getElementById("facebook")
+    if(facebook.checked) {
+        serivces.push(facebook.value)
     }
-    if(document.getElementById("twitter").checked) {
-        serivces.push("twitter")
+
+    let twitter = document.getElementById("twitter")
+    if(twitter.checked) {
+        serivces.push(twitter.value)
     }
-    if(document.getElementById("surfaceMail").checked) {
-        serivces.push("surfaceMail")
+
+    let surfaceMail = document.getElementById("surfaceMail")
+    if(surfaceMail.checked) {
+        serivces.push(surfaceMail.value)
     }
-    if(document.getElementById("personalVisit").checked) {
-        serivces.push("personalVisit")
+
+    let personalVisit = document.getElementById("personalVisit")
+    if(personalVisit.checked) {
+        serivces.push(personalVisit.value)
     }
-    sessionStorage.setItem("services", serivces)
+
+    sessionStorage.setItem("services", JSON.stringify(serivces))
 
     let budget = "Not Supplied";
     if(document.getElementById("lt50").checked) {
