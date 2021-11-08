@@ -95,6 +95,9 @@
                         <option value="11">11</option>
                     </select>
                 </div>
+                <div id="userHeight-invalid-feedback" class="invalid-feedback">
+                    Please select both fields.
+                </div>
             </div>
 
             <div class="col-md-3">
@@ -309,17 +312,51 @@ function saveFormToStorage(form) {
 
     // Creating phone number error closure.
     let checkPhoneNumberInput = () => {
+
+        let valid = true
         if(phoneNumberInput.checkValidity() === false) {
             phoneNumberFeedback.style.display = "block"
         }
         else {
             phoneNumberFeedback.style.display = "none"
+            valid = false
         }
+
+        return valid
     }
 
     // Update the phone number error when the input field is changed.
     phoneNumberInput.addEventListener('change', (event) => {
         checkPhoneNumberInput()
+    })
+
+    // Get fields to check for proper height input.
+    let heightFeedback = document.getElementById("userHeight-invalid-feedback")
+    let heightFeet = document.getElementById("heightFeet")
+    let heightInches = document.getElementById("heightInches")
+
+    // Create closure in order to validate height and display error if needed.
+    let checkHeightInput = () => {
+
+        let valid = true
+        if((heightFeet.value !== "" && heightInches.value === "") || 
+           (heightFeet.value === "" && heightInches.value !== "")) {
+            heightFeedback.style.display = "block"
+        }
+        else {
+            heightFeedback.style.display = "none"
+            valid = false
+        }
+
+        return valid
+    }
+
+    // Set up callbacks on the fields chaning in order to display error.
+    heightFeet.addEventListener('change', (event) => {
+        checkHeightInput()
+    })
+    heightInches.addEventListener('change', (event) => {
+        checkHeightInput()
     })
 
     // Fetch all the forms that need validation
@@ -344,6 +381,15 @@ function saveFormToStorage(form) {
 
                 captchaFeedbackDiv.style.display = "block"
                 submitting = false;
+            }
+
+            // Check validity of phone number and height, stop the submission
+            // if needed.
+            let phoneValid = checkPhoneNumberInput()
+            let heightValid = checkHeightInput()
+            if(phoneValid || heightValid ) {
+                event.preventDefault()
+                event.stopPropagation()
             }
 
             if(submitting) {
