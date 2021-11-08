@@ -1,60 +1,273 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>    
+        <link rel="stylesheet" href="main.css">
 
-    <title>Results verification Page Cameron Robinson</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>    
 
-</head>
-<style>
-    #phone-number-invalid-feedback {
-        display: none;
-    }
-    #captcha-invalid-feedback {
-        display: none;
-    }
-    .required {
-        color: red;
-        text-decoration: none !important;
-    }
-    .dummyLink {
-        color: blue;
-        cursor: inherit !important;
-    }
-</style>
-<body class="container">
-<header>
-</header>
-<br>
-<div style="text-align: center;">
-    <h4>Results verification Page Cameron Robinson</h4>
-</div>
-<br>
-<br>
-<br>
-<br>
+        <title>Results verification Page Cameron Robinson</title>
 
-<main>
-</main>
+        <script>
+            let map = null;
+            let geocoder = null;
+            let address = "null";
 
-<footer>
-</footer>
+            // Initialize and add the map
+            function initMap() {
+                map = new google.maps.Map(document.getElementById("map"), {
+                    zoom: 16,
+                });
 
-<script>
-(function () {
-    'use strict'
-    
-    if("firstName" in sessionStorage) {
-        console.log(sessionStorage.getItem("firstName"))
-    }
-    else {
-        console.log("Data not found Display error.")
-    }
-})()
-</script>
-</body>
+                geocoder = new google.maps.Geocoder();
+                codeAddress()
+            }
+
+            function codeAddress() {
+                console.log("TEST")
+                geocoder.geocode({'address': address}, function(results, status) {
+                if (status === 'OK') {
+                    map.setCenter(results[0].geometry.location);
+                    var marker = new google.maps.Marker({
+                    map: map,
+                    position: results[0].geometry.location
+                    });
+                } else {
+                    alert('Geocode was not successful for the following reason: ' + status);
+                }
+                });
+            }
+        </script>
+        <style>
+            .bg-light {
+                border-radius: 10px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="row g-6 p-4" style="text-align: center;">
+                <h4>Results verification Page Cameron Robinson</h4>
+            </div>
+            <div id="Error" class="row grouping gy-6" style="text-align: center;">
+                <div>
+                    Error getting results. Please use the form submission page first.
+                </div>
+            </div>
+            <div id="Results" class="container-lg g-2">
+                <h5>Please verify the information below is correct.</h3>
+                <br>
+                <h6 class="row">Personal Information</h6>
+                <div class="row container grouping">
+                    <div id="firstName" class="row container m-1 py-1 gx-0">
+                        <div class="row">
+                            First Name
+                        </div>
+                        <div id="firstName_data" class="row border bg-light p-1 mx-1 gx-0 col-5">
+                        </div>
+                    </div>
+                    <div id="lastName" class="row container m-1 py-1 gx-0">
+                        <div class="row">
+                            Last Name
+                        </div>
+                        <div id="lastName_data" class="row border bg-light p-1 mx-1 gx-0 col-5">
+                            
+                        </div>
+                    </div>
+                    <div id="emailAddress" class="row container m-1 py-1 gx-0">
+                        <div class="row">
+                            E-Mail Address
+                        </div>
+                        <div id="emailAddress_data" class="row border bg-light p-1 mx-1 gx-0 col-5">
+                            
+                        </div>
+                    </div>
+                    <div id="preferredTitle" class="row container m-1 py-1 gx-0">
+                        <div class="row">
+                            Preferred Title
+                        </div>
+                        <div id="preferredTitle_data" class="row border bg-light p-1 mx-1 gx-0 col-5">
+                            
+                        </div>
+                    </div>
+                    <div id="height" class="row container m-1 py-1 gx-0">
+                        <div class="row">
+                            Height
+                        </div>
+                        <div id="height_data" class="row border bg-light p-1 mx-1 gx-0 col-5">
+                            test2
+                        </div>
+                    </div>
+                    <div id="phoneNumber" class="row container m-1 py-1 gx-0">
+                        <div class="row">
+                            Phone Number
+                        </div>
+                        <div id="phoneNumber_data" class="row border bg-light p-1 mx-1 gx-0 col-5">
+                            
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <h6 class="row">Address</h6>
+                <div class="row container grouping">
+                    <div id="address1" class="row container m-1 py-1 gx-0">
+                        <div class="row">
+                            Address Line 1
+                        </div>
+                        <div id="address1_data" class="row border bg-light p-1 mx-1 gx-0 col-5">
+                            
+                        </div>
+                    </div>
+                    <div id="address2" class="row container m-1 py-1 gx-0">
+                        <div class="row">
+                            Address Line 2
+                        </div>
+                        <div  id="address2_data" class="row border bg-light p-1 mx-1 gx-0 col-5">
+                            test2
+                        </div>
+                    </div>
+                    <div id="zipCode" class="row container m-1 py-1 gx-0">
+                        <div class="row">
+                            Zip Code
+                        </div>
+                        <div id="zipCode_data" class="row border bg-light p-1 mx-1 gx-0 col-5">
+                            
+                        </div>
+                    </div>
+                    <div id="mapContainer" class="row p-2 ratio ratio-21x9" >
+                        <!--The div element for the map -->
+                        <div id="map" class=""></div>
+                    </div>
+                </div>
+                <br>
+                <div id="servicesDiv">
+                    <h6 class="row">Services</h6>
+                    <div class="row container grouping mb-5">
+                        <div id="services" class="row container m-1 py-1 gx-0">
+                            <div class="row">
+                                Services Required
+                            </div>
+                            <div id="services_data" class="row border bg-light p-1 mx-1 gx-0 col-5">
+                                test2
+                            </div>
+                        </div>
+                        <div id="budget" class="row container m-1 py-1 gx-0">
+                            <div class="row">
+                                Monthly Budget
+                            </div>
+                            <div id="budget_data" class="row border bg-light p-1 mx-1 gx-0 col-5">
+                                
+                            </div>
+                        </div>                
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </body>
+    <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDAopSIv5tjoyUB7z96qOiOpyZARyWBCMc&callback=initMap&libraries=&v=weekly" async ></script>
+    <script>
+        function setMap() {
+
+            document.getElementById("firstName_data").innerText = sessionStorage.getItem("firstName")
+
+            document.getElementById("lastName_data").innerText = sessionStorage.getItem("lastName")
+
+            document.getElementById("emailAddress_data").innerText = sessionStorage.getItem("emailAddress")
+
+            document.getElementById("preferredTitle_data").innerText = sessionStorage.getItem("preferredTitle")
+
+            let heightFeet = sessionStorage.getItem("heightFeet")
+            let heightInches = sessionStorage.getItem("heightInches")
+            if(heightFeet !== "") {
+                document.getElementById("height_data").innerText = `${heightFeet}' ${heightInches}"`
+            }
+            else {
+                document.getElementById("height").style.display = "none"
+            }
+            
+            let phoneNumber = sessionStorage.getItem("phoneNumber")
+            if(phoneNumber !== "") {
+                document.getElementById("phoneNumber_data").innerText = phoneNumber
+            }
+            else {
+                document.getElementById("phoneNumber").style.display = "none"
+            }
+            
+            let address1 = sessionStorage.getItem("address1")
+            document.getElementById("address1_data").innerText = address1
+
+            let address2 = sessionStorage.getItem("address2")
+            if(address2 !== "") {
+                document.getElementById("address2_data").innerText = address2
+            }
+            else {
+                document.getElementById("address2").style.display = "none"
+            }
+
+            let zipCode = sessionStorage.getItem("zipCode")
+            document.getElementById("zipCode_data").innerText = zipCode
+
+            address = `${address1}, ${zipCode}`
+
+            let budgetAndServices = false
+            if("services" in sessionStorage) {
+                let services = JSON.parse(sessionStorage.getItem("services"))
+                if(services.length > 0){
+                    budgetAndServices = true
+
+                    let servicesStr = ""
+                    for(let i = 0; i < services.length; i++) {
+                        if(servicesStr !== "") {
+                            servicesStr = servicesStr.concat(", ")
+                        }
+                        servicesStr = servicesStr.concat(services[i])
+                    }
+                    document.getElementById("services_data").innerText = servicesStr
+                }
+            }
+            else {
+                document.getElementById("services").style.display = "none"
+            }
+
+            if("budget" in sessionStorage) {
+                let budget = sessionStorage.getItem("budget")
+                if(budget !== "Not Supplied"){
+                    budgetAndServices = true
+
+                    document.getElementById("budget_data").innerText = budget
+                }
+            }
+            else {
+                document.getElementById("budget").style.display = "none"
+            }
+
+            if(budgetAndServices === false) {
+
+                document.getElementById("servicesDiv").style.display = "none"
+            }
+        }
+
+        (function () {
+            'use strict'
+
+            // On page load we make sure that some data is in the browser cache
+            // and if so proceed to load the data and display it, otherwise we 
+            // will show an error page.
+            if("firstName" in sessionStorage) {
+                document.getElementById("Error").style.display = "none"
+                document.getElementById("Results").style.display = "Block"
+                setMap()
+            }
+            else {
+                console.log("Data not found, display error.")
+                document.getElementById("Error").style.display = "none"
+                // document.getElementById("Results").style.display = "none"
+            }
+        })()
+    </script>
 </html>
