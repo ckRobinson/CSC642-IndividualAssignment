@@ -35,7 +35,14 @@
                     position: results[0].geometry.location
                     });
                 } else {
-                    alert('Geocode was not successful for the following reason: ' + status);
+                    if(address !== "null,null") {
+                        address = "null,null"
+                        codeAddress()
+                        alert('Unable to find you address, please try again later.');
+                    }
+                    else {
+                        alert('Geocode was not successful for the following reason: ' + status);
+                    }
                 }
                 });
             }
