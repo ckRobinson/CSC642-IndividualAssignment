@@ -34,7 +34,7 @@
             
             <div class="col-md-6 needs-validation">
                 <label for="firstName" class="col-form-label">First Name <abbr class="required" title="required">*</abbr></label>
-                <input type="text" id="firstName" class="form-control check-validity-event" placeholder="John" pattern=".{1,40}" required>
+                <input type="text" id="firstName" class="form-control check-validity-event" placeholder="John" pattern="[a-zA-Z]{1,40}" required>
                 <div class="invalid-feedback">
                     Please enter a valid first name.
                 </div>
@@ -42,7 +42,7 @@
 
             <div class="col-md-6 needs-validation">
                 <label for="lastName" class="col-form-label">Last Name <abbr class="required" title="required">*</abbr></label>
-                <input type="text" id="lastName" class="form-control check-validity-event" placeholder="Doe" pattern=".{1,40}" required>
+                <input type="text" id="lastName" class="form-control check-validity-event" placeholder="Doe" pattern="[a-zA-Z]{1,40}" required>
                 <div class="invalid-feedback">
                     Please enter a valid last name.
                 </div>
@@ -120,14 +120,14 @@
         <div class="grouping">
             <div class="col-md-6 needs-validation">
                 <label for="address1" class="col-form-label">Address Line 1 <abbr class="required" title="required">*</abbr></label>
-                <input type="text" class="form-control check-validity-event" id="address1" placeholder="1234 Doe Street" pattern=".{1,40}" required>
+                <input type="text" class="form-control check-validity-event" id="address1" placeholder="1234 Doe Street" pattern="[a-zA-Z0-9\s]{1,40}" required>
                 <div class="invalid-feedback">
                     Please enter a valid address.
                 </div>
             </div>
             <div class="col-md-6">
                 <label for="address2" class="col-form-label">Address Line 2</label>
-                <input type="text" class="form-control optional-check-validity-event" id="address2" placeholder="Apt 123 (Optional)" pattern=".{1,40}">                
+                <input type="text" class="form-control optional-check-validity-event" id="address2" placeholder="Apt 123 (Optional)" pattern="[a-zA-Z0-9\s]{1,40}">                
                 <div class="invalid-feedback">
                     Address 2 line is too long
                 </div>
