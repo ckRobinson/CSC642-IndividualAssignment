@@ -22,7 +22,7 @@
     <h4>Data survey Form</h4>
 </div>
 <br>
-<form action="results.html" method="post" class="form-validation"  novalidate>
+<form id="data_form" action="results.html" class="form-validation"  novalidate>
     <div>
         <label for="AboutUser" class="col-form-label">About You</label>
         <div id="AboutUser" class="grouping">
@@ -196,7 +196,7 @@
         <br>
 
         <div class="col-12">
-        <button class="btn btn-primary" type="submit">Submit</button>
+        <input class="btn btn-primary" type="button" value="Submit" onclick="submitForm()">
         </div>
     </div>
 </form>
@@ -213,6 +213,8 @@
 <script>
 var captchaValid = true;
 var captchaFeedbackDiv = null
+let checkPhoneNumberInput = null
+let checkHeightInput = null
 
 var onloadCallback = function() {
         grecaptcha.render('html_element', {
@@ -228,6 +230,14 @@ var correctCaptcha = function(response) {
     }
     // alert(response);
 };
+
+// Github was allowing the posting of forms but for some reason it stopped working
+// towards the end of the project. To fix this issue I changed to "submitting" the
+// form with this method and then swapping the page manually.
+function submitForm() {
+    formSubmissionCheck()
+    window.location.href = 'results.html'
+}
 
 function saveFormToStorage(form) {
     sessionStorage.setItem("firstName",       document.getElementById("firstName").value)
@@ -288,6 +298,52 @@ function saveFormToStorage(form) {
     sessionStorage.setItem("budget", budget)
 }
 
+// This was the original function used to check and stop the propogation of 
+// form submission when there were errors in the data. Now used when called
+// from the submit form button.
+function formSubmissionCheck() {
+
+    let form = document.getElementById('data_form')
+    let submitting = true
+    // If any one of the fields is invalid we stop the event.
+    if (form.checkValidity() === false) {
+        event.preventDefault()
+        event.stopPropagation()
+        submitting = false
+    }
+    
+    if(captchaValid === false) {
+        event.preventDefault()
+        event.stopPropagation()
+
+        captchaFeedbackDiv.style.display = "block"
+        submitting = false;
+    }
+
+    // Check validity of phone number and height, stop the submission
+    // if needed.
+    let phoneValid = checkPhoneNumberInput()
+    let heightValid = checkHeightInput()
+    if(phoneValid || heightValid ) {
+        event.preventDefault()
+        event.stopPropagation()
+    }
+
+    if(submitting) {
+
+        saveFormToStorage(form)
+    }
+    else {
+        // We are not switching to the results page so update the 
+        // divs to show which fields have errors.
+        // For each required field we set its css tag to allow
+        // for the bootstrap popups.
+        divs.forEach(function (div) {
+            div.classList.add('was-validated')
+        })
+    }
+}
+
 // Basis of this function was taken from https://getbootstrap.com/docs/5.0/forms/validation/
 // but modified for my purposes.
 (function () {
@@ -311,7 +367,7 @@ function saveFormToStorage(form) {
     let phoneNumberInput = document.getElementById('phoneNumber')
 
     // Creating phone number error closure.
-    let checkPhoneNumberInput = () => {
+    checkPhoneNumberInput = () => {
 
         let valid = true
         if(phoneNumberInput.checkValidity() === false) {
@@ -336,7 +392,7 @@ function saveFormToStorage(form) {
     let heightInches = document.getElementById("heightInches")
 
     // Create closure in order to validate height and display error if needed.
-    let checkHeightInput = () => {
+    checkHeightInput = () => {
 
         let valid = true
         if((heightFeet.value !== "" && heightInches.value === "") || 
@@ -363,49 +419,13 @@ function saveFormToStorage(form) {
     var forms = document.querySelectorAll('.form-validation')
 
     // Loop over the forms and prevent submission if fields are invalid
+    //
+    // This is not possible to use with github pages from what I can tell
+    // I had to rework the page submission in order to use a basic button 
+    // rather then attempting to post the form.
     Array.from(forms).forEach(function (form) {
 
-        form.addEventListener('submit', function (event) {
-
-            let submitting = true
-            // If any one of the fields is invalid we stop the event.
-            if (form.checkValidity() === false) {
-                event.preventDefault()
-                event.stopPropagation()
-                submitting = false
-            }
-            
-            if(captchaValid === false) {
-                event.preventDefault()
-                event.stopPropagation()
-
-                captchaFeedbackDiv.style.display = "block"
-                submitting = false;
-            }
-
-            // Check validity of phone number and height, stop the submission
-            // if needed.
-            let phoneValid = checkPhoneNumberInput()
-            let heightValid = checkHeightInput()
-            if(phoneValid || heightValid ) {
-                event.preventDefault()
-                event.stopPropagation()
-            }
-
-            if(submitting) {
-
-                saveFormToStorage(form)
-            }
-            else {
-                // We are not switching to the results page so update the 
-                // divs to show which fields have errors.
-                // For each required field we set its css tag to allow
-                // for the bootstrap popups.
-                divs.forEach(function (div) {
-                    div.classList.add('was-validated')
-                })
-            }
-        }, false)
+        form.addEventListener('submit', formSubmissionCheck(), false)
     })
 })()
 </script>
