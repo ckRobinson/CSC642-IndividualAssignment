@@ -27,7 +27,6 @@
             }
 
             function codeAddress() {
-                console.log("TEST")
                 geocoder.geocode({'address': address}, function(results, status) {
                 if (status === 'OK') {
                     map.setCenter(results[0].geometry.location);
@@ -139,7 +138,7 @@
                     </div>
                     <div id="mapContainer" class="row p-2 ratio ratio-21x9" >
                         <!--The div element for the map -->
-                        <div id="map" class=""></div>
+                        <!-- <div id="map" class=""></div> -->
                     </div>
                 </div>
                 <br>
@@ -252,22 +251,22 @@
             }
         }
 
-        (function () {
-            'use strict'
+        // (function () {
+        //     'use strict'
 
-            // On page load we make sure that some data is in the browser cache
-            // and if so proceed to load the data and display it, otherwise we 
-            // will show an error page.
-            if("firstName" in sessionStorage) {
-                document.getElementById("Error").style.display = "none"
-                document.getElementById("Results").style.display = "Block"
-                setMap()
-            }
-            else {
-                console.log("Data not found, display error.")
-                document.getElementById("Error").style.display = "Block"
-                document.getElementById("Results").style.display = "none"
-            }
-        })()
+        //     // On page load we make sure that some data is in the browser cache
+        //     // and if so proceed to load the data and display it, otherwise we 
+        //     // will show an error page.
+        //     if("firstName" in sessionStorage) {
+        //         document.getElementById("Error").style.display = "none"
+        //         document.getElementById("Results").style.display = "Block"
+        //         setMap()
+        //     }
+        //     else {
+        //         console.log("Data not found, display error.")
+        //         document.getElementById("Error").style.display = "Block"
+        //         document.getElementById("Results").style.display = "none"
+        //     }
+        // })()
     </script>
 </html>
