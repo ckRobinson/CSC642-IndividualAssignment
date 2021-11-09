@@ -170,7 +170,7 @@
     <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDAopSIv5tjoyUB7z96qOiOpyZARyWBCMc&callback=initMap&libraries=&v=weekly" async ></script>
     <script>
-        function setMap() {
+        function setData() {
 
             document.getElementById("firstName_data").innerText = sessionStorage.getItem("firstName")
 
@@ -260,7 +260,7 @@
             if("firstName" in sessionStorage) {
                 document.getElementById("Error").style.display = "none"
                 document.getElementById("Results").style.display = "Block"
-                setMap()
+                setData()
             }
             else {
                 console.log("Data not found, display error.")
