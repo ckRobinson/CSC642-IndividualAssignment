@@ -215,6 +215,7 @@ var captchaValid = true;
 var captchaFeedbackDiv = null
 let checkPhoneNumberInput = null
 let checkHeightInput = null
+let validationDivs = null
 
 var onloadCallback = function() {
         grecaptcha.render('html_element', {
@@ -235,8 +236,10 @@ var correctCaptcha = function(response) {
 // towards the end of the project. To fix this issue I changed to "submitting" the
 // form with this method and then swapping the page manually.
 function submitForm() {
-    formSubmissionCheck()
-    window.location.href = 'results.html'
+    let submitting = formSubmissionCheck()
+    if(submitting) {
+        window.location.href = 'results.html'        
+    }
 }
 
 function saveFormToStorage(form) {
@@ -307,14 +310,14 @@ function formSubmissionCheck() {
     let submitting = true
     // If any one of the fields is invalid we stop the event.
     if (form.checkValidity() === false) {
-        event.preventDefault()
-        event.stopPropagation()
+        // event.preventDefault()
+        // event.stopPropagation()
         submitting = false
     }
     
     if(captchaValid === false) {
-        event.preventDefault()
-        event.stopPropagation()
+        // event.preventDefault()
+        // event.stopPropagation()
 
         captchaFeedbackDiv.style.display = "block"
         submitting = false;
@@ -325,8 +328,9 @@ function formSubmissionCheck() {
     let phoneValid = checkPhoneNumberInput()
     let heightValid = checkHeightInput()
     if(phoneValid || heightValid ) {
-        event.preventDefault()
-        event.stopPropagation()
+        // event.preventDefault()
+        // event.stopPropagation()
+        submitting = false;
     }
 
     if(submitting) {
@@ -338,10 +342,13 @@ function formSubmissionCheck() {
         // divs to show which fields have errors.
         // For each required field we set its css tag to allow
         // for the bootstrap popups.
-        divs.forEach(function (div) {
+        console.log("TEST")
+        validationDivs.forEach(function (div) {
             div.classList.add('was-validated')
         })
     }
+
+    return submitting;
 }
 
 // Basis of this function was taken from https://getbootstrap.com/docs/5.0/forms/validation/
@@ -351,8 +358,8 @@ function formSubmissionCheck() {
 
     // Get a list of all the divs that need validation. This is used to apply 
     // the special bootstrap validation popups only on required fields.
-    let divs = document.querySelectorAll('.needs-validation')
-    divs = Array.from(divs)
+    validationDivs = document.querySelectorAll('.needs-validation')
+    validationDivs = Array.from(validationDivs)
 
     // Get the invalid feedback error div for the captcha. Used to
     // display the error on form submission but can not be done through standard
@@ -425,7 +432,7 @@ function formSubmissionCheck() {
     // rather then attempting to post the form.
     Array.from(forms).forEach(function (form) {
 
-        form.addEventListener('submit', formSubmissionCheck(), false)
+        form.addEventListener('submit', formSubmissionCheck, false)
     })
 })()
 </script>
