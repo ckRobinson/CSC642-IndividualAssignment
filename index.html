@@ -389,13 +389,15 @@ function setValidatorEvents() {
 
         input.addEventListener('change', (event) => {
 
-            if(input.checkValidity() === false) {
+            if(input.checkValidity() === false || input.value !== "") {
 
                 input.parentNode.classList.add('was-validated')
             }
             else {
 
-                input.parentNode.classList.remove('was-validated')
+                if(input.value === "") {
+                    input.parentNode.classList.remove('was-validated')
+                }
             }
         })
     }
