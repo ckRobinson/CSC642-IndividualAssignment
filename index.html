@@ -476,6 +476,20 @@ function setValidatorEvents() {
         checkHeightInput()
     })
 
+    // Add an event listener so the first time a title is selected we remove the
+    // empty option because it is a required field. Still allows for updating
+    // the selection if a mistake is made.
+    let prefTitleSelector = document.getElementById("preferredTitle")
+    let removedFirst = false
+    prefTitleSelector.addEventListener('change', (event) => {
+
+        // We want to only let this run once
+        if(removedFirst === false) {
+            prefTitleSelector.remove(0); 
+            removedFirst = true
+        }
+    })
+
     // Fetch all the forms that need validation
     var forms = document.querySelectorAll('.form-validation')
 
