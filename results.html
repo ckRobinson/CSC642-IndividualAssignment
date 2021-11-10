@@ -124,7 +124,6 @@
                             Address Line 2
                         </div>
                         <div  id="address2_data" class="row border bg-light p-1 mx-1 gx-0 col-5">
-                            test2
                         </div>
                     </div>
                     <div id="zipCode" class="row container m-1 py-1 gx-0">
@@ -132,7 +131,6 @@
                             Zip Code
                         </div>
                         <div id="zipCode_data" class="row border bg-light p-1 mx-1 gx-0 col-5">
-                            
                         </div>
                     </div>
                     <div id="mapContainer" class="row p-2 ratio ratio-21x9" >
@@ -149,7 +147,6 @@
                                 Services Required
                             </div>
                             <div id="services_data" class="row border bg-light p-1 mx-1 gx-0 col-5">
-                                test2
                             </div>
                         </div>
                         <div id="budget" class="row container m-1 py-1 gx-0">
@@ -157,7 +154,6 @@
                                 Monthly Budget
                             </div>
                             <div id="budget_data" class="row border bg-light p-1 mx-1 gx-0 col-5">
-                                
                             </div>
                         </div>                
                     </div>
@@ -236,6 +232,9 @@
                     }
                     document.getElementById("services_data").innerText = servicesStr
                 }
+                else {
+                    document.getElementById("services").style.display = "none"
+                }
             }
             else {
                 document.getElementById("services").style.display = "none"
@@ -247,6 +246,9 @@
                     budgetAndServices = true
 
                     document.getElementById("budget_data").innerText = budget
+                }
+                else {
+                    document.getElementById("budget").style.display = "none"
                 }
             }
             else {
