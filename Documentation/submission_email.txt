@@ -1,0 +1,17 @@
+Here is the link to test my individual assignment URL  https://ckrobinson.github.io/CSC642-IndividualAssignment/
+
+For the development I used Bootstrap5.
+For field validation I used Bootstrap5 and javascript.
+For maps I used the GoogleMaps API.
+For captcha I used ReCaptcha.
+
+For testing I used the SeleniumIDE and tested all of the form fields entering data and making sure the data reched the results page properly.
+In the attachment please find screen shots of the results of the automated testing.
+
+For this work I worked alone with no help from other students.
+
+Documentation and Code I developed for this assignment are  in github https://github.com/ckRobinson/CSC642-IndividualAssignment
+
+Regards, 
+
+Cameron Robinson
